@@ -3,6 +3,9 @@ import LandingPage from "../../pages/LandingPage";
 import AboutUs from "../../pages/AboutUs"
 import ContactUs from "../../pages/ContactUs"
 import Login from "../../pages/Login";
+import Signup from "../../pages/SignUp";
+import TravelList from "../../pages/TravelList";
+import TravelHistory from "../../pages/TravelHistory";
 
 export const routing = [
     {
@@ -24,6 +27,21 @@ export const routing = [
         path: "/Login",
         element: <Login/>,
         isPrivate: false,
-    }
+    },
+    {
+        path: "/SignUp",
+        element: <Signup/>,
+        isPrivate: false,
+    },
+    {
+        path: "/TravelList",
+        element: <TravelList/>,
+        isPrivate: true,
+    },
+    {
+        path: "/TravelHistory",
+        element: <TravelHistory/>,
+        isPrivate: true,
+    },
     
 ];

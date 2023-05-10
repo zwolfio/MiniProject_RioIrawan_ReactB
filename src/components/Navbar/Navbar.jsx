@@ -1,10 +1,13 @@
 import React from "react";
 import "./Navbar.style.css"
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import authSlice from "../../config/auth/authSlice";
 
 const Navbar = () => {
-
+    const isLogin = useSelector((state)=> state.auth.isLogin);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
 	const handlerAboutUS = () => {
 		navigate("/AboutUS");
@@ -14,6 +17,16 @@ const Navbar = () => {
 	};
 	const handlerContactUs = () => {
 		navigate("/ContactUs");
+	};
+	const handlerTravelList = () => {
+		navigate("/TravelList");
+	};
+	const handlerTravelHistory = () => {
+		navigate("/TravelHistory");
+	};
+	const handlerLogOut = () => {
+		navigate("/");
+        dispatch(authSlice.actions.login(false));
 	};
 
     return (
@@ -48,12 +61,16 @@ const Navbar = () => {
                                     </a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link text-light" href="#">
+                                    <a className="nav-link text-light" 
+                                        onClick={handlerTravelList}
+                                    >
                                         Travel List
                                     </a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link text-light" href="#">
+                                    <a className="nav-link text-light"
+                                        onClick={handlerTravelHistory}
+                                    >
                                         History
                                     </a>
                                 </li>
@@ -71,6 +88,14 @@ const Navbar = () => {
                                         Contact us
                                     </a>
                                 </li>
+                                {isLogin?
+                                    <li className="nav-item">
+                                        <a className="nav-link text-light" 
+                                            onClick={handlerLogOut}>
+                                            LogOut
+                                        </a>
+                                    </li>:<li></li>
+                                }
                             </ul>
                         </div>
                     </div>

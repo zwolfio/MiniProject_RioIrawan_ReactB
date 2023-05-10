@@ -1,6 +1,5 @@
 import { useFormik } from "formik";
 import React from "react";
-import Navbar from "../../../component/Organism/Navbar/Navbar";
 import * as Yup from "yup";
 const Signup = () => {
 	const formik = useFormik({
@@ -36,7 +35,6 @@ const Signup = () => {
 
 	return (
 		<div>
-			<Navbar />
 			<div className="d-md-flex min-vh-100 justify-content-center align-items-center">
 				<div className="w-full w-md-50 p-4 shadow">
 					<form>

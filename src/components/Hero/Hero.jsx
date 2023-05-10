@@ -1,14 +1,21 @@
 import React from "react";
 import HeroImg from "../../assets/img/hero-img.png"
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import "./Hero.style.css"
+import  "./Hero.style.css"
 
 const Hero = () => {
-
+    const isLogin = useSelector((state)=> state.auth.isLogin);
     const navigate = useNavigate();
 
     const handlerLogin = () => {
         navigate("/Login");
+    }
+    const handlerSignUp = () => {
+        navigate("/SignUp");
+    }
+    const handlerStart = () => {
+        navigate("/TravelList");
     }
 
     return (
@@ -23,7 +30,14 @@ const Hero = () => {
                         Rencanakan liburan yang luar biasa bersama kami <br/>
                         dan nikmati pengalaman tak terlupakan.
                     </h5>
-                    <a 
+                    {isLogin?<div><a 
+                        className="btn rounded-pill fs-5 fw-bold text-white me-3 px-4 "
+                        onClick={handlerStart}
+                        style={{ backgroundColor: "#EF5B00" }}
+                    >
+                        Start Planning
+                    </a>
+                    </div>:<div><a 
                         className="btn rounded-pill fs-5 fw-bold text-white me-3 px-4 "
                         onClick={handlerLogin}
                         style={{ backgroundColor: "#EF5B00" }}
@@ -32,11 +46,14 @@ const Hero = () => {
                     </a>
                     <a
                         className="text-decoration-none fs-5 fw-bold m"
-                        href="#"
+                        onClick={handlerSignUp}
                         style={{ color: "#EF5B00" }}
                     >
                         Sign Up
                     </a>
+                    </div>
+                     }
+                    
                 </div>
                 <div className="col-md-6">
                     <img

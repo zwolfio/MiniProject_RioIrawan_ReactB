@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { routing } from "./route";
+import { routing } from "./Route";
 import { PrivateRoute } from "./PrivateRoute";
 const RootRouting = () => {
 	const Login = useSelector((state)=> state.auth.isLogin);

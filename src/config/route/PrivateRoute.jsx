@@ -3,7 +3,7 @@ import { Navigate } from "react-router-dom";
 
 export const PrivateRoute = ({ authentication, children }) => {
     if (!authentication){
-        return <Navigate to = "/Signin" />
+        return <Navigate to = "/Login" />
     }
     return children;
 }
