@@ -6,11 +6,17 @@ import Login from "../../pages/Login";
 import Signup from "../../pages/SignUp";
 import TravelList from "../../pages/TravelList";
 import TravelHistory from "../../pages/TravelHistory";
+import LandingPageLogin from "../../pages/LandingPageLogin";
 
 export const routing = [
     {
         path: "/",
         element: <LandingPage/>,
+        isPrivate: false,
+    },
+    {
+        path: "/:username",
+        element: <LandingPageLogin/>,
         isPrivate: false,
     },
     {

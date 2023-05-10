@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import  "./Hero.style.css"
 
-const Hero = () => {
+const Hero = (props) => {
     const isLogin = useSelector((state)=> state.auth.isLogin);
     const navigate = useNavigate();
 
@@ -23,7 +23,7 @@ const Hero = () => {
             <div className="row w-100 d-flex align-items-center my-5 p-3">
                 <div className="col-md-6" >
                     <h1 className="hero-title fw-bold pb-2">
-                        Let’s Plan your <br/> Travel
+                        Let’s Plan your <br/> Travel, {props.username}
                     </h1>
                     <h5 className="hero-desc pb-2">
                         Travel planner terbaik untuk perjalanan Anda.<br/>
