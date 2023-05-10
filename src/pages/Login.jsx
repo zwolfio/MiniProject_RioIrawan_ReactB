@@ -9,9 +9,6 @@ import { userLogin } from "../config/apollo/gqlClient";
 
 const Login = () => {
 
-    const [userEmail, setuserEmail] = useState('')
-    const [userPass, setuserPass] = useState('')
-
     const [ErrorMsg, setErrorMsg] = useState("")
 
     const dispatch = useDispatch();
