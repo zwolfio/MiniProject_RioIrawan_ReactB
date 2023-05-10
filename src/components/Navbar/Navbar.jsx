@@ -1,13 +1,28 @@
 import React from "react";
 import "./Navbar.style.css"
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+
+    const navigate = useNavigate();
+
+	const handlerAboutUS = () => {
+		navigate("/AboutUS");
+	};
+	const handlerHome = () => {
+		navigate("/");
+	};
+	const handlerContactUs = () => {
+		navigate("/ContactUs");
+	};
 
     return (
         <div>
             <nav className="navbar navbar-expand-lg shadow-sm">
                 <div className="container">
-                    <a className="navbar-brand text-light fw-bold" href="#">
+                    <a className="navbar-brand text-light fw-bold" 
+                        onClick={handlerHome}
+                    >
                         TravelPlanner
                     </a>
                     <button
@@ -26,7 +41,9 @@ const Navbar = () => {
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                                 
                                 <li className="nav-item">
-                                    <a className="nav-link text-light" href="#">
+                                    <a className="nav-link text-light" 
+                                        onClick={handlerHome}
+                                    >
                                         Home
                                     </a>
                                 </li>
@@ -41,12 +58,16 @@ const Navbar = () => {
                                     </a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link text-light" href="#">
+                                    <a className="nav-link text-light" 
+                                    onClick={handlerAboutUS}
+                                    
+                                >
                                         About us
                                     </a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link text-light" href="#">
+                                    <a className="nav-link text-light" 
+                                        onClick={handlerContactUs}>
                                         Contact us
                                     </a>
                                 </li>

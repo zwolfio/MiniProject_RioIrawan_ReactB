@@ -1,14 +1,13 @@
 import React from "react";
-import Navbar from "./components/navbar/navbar";
-import Hero from "./components/Hero/Hero";
-
+import RootRouting from "./config/route/RootRouting";
+import { Provider } from "react-redux";
+import store from "./config/store";
 const App = () => {
-    return (
-	    <div>
-            <Navbar/>
-            <Hero/>
-        </div>
-    )
+	return (
+			<Provider store={store}>	
+					<RootRouting />;
+			</Provider>
+	);
 };
 
 export default App;

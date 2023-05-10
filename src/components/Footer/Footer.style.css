@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Istok+Web:wght@400;700&display=swap');
+.h1,
+.icon-sosmed a {
+    color: #5A44EB;
+}
+
+body {
+    font-family: 'Istock Web', sans-serif;
+}
+
+#footer {
+    flex-shrink: none;
+}
+
+.icon-sosmed a {
+    padding: 0.5rem;
+}

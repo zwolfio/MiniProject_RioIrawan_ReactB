@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Istok+Web:wght@400;700&display=swap');
+.About {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+    background-color: #5A44EB;
+}
+
+body {
+    font-family: 'Istok Web', sans-serif;
+}

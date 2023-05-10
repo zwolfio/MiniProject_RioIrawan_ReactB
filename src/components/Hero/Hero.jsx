@@ -1,12 +1,19 @@
 import React from "react";
 import HeroImg from "../../assets/img/hero-img.png"
+import { useNavigate } from "react-router-dom";
 import "./Hero.style.css"
 
 const Hero = () => {
 
+    const navigate = useNavigate();
+
+    const handlerLogin = () => {
+        navigate("/Login");
+    }
+
     return (
         <div className="container">
-            <div className="row min-vh-100 d-flex align-items-center p-3">
+            <div className="row w-100 d-flex align-items-center my-5 p-3">
                 <div className="col-md-6" >
                     <h1 className="hero-title fw-bold pb-2">
                         Let’s Plan your <br/> Travel
@@ -18,7 +25,7 @@ const Hero = () => {
                     </h5>
                     <a 
                         className="btn rounded-pill fs-5 fw-bold text-white me-3 px-4 "
-                        href="#"
+                        onClick={handlerLogin}
                         style={{ backgroundColor: "#EF5B00" }}
                     >
                         Login
