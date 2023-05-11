@@ -1,7 +1,19 @@
 import { useFormik } from "formik";
-import React from "react";
+import React, { useState } from "react";
+import { useMutation } from "@apollo/client";
 import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
+import { userSignup } from "../config/apollo/gqlClient";
 const Signup = () => {
+
+	const [errorMsg, setErrorMsg] = useState('');
+	const [ register, {loading:loginload, error, data}  ] = useMutation(userSignup)
+	
+
+	const navigate = useNavigate();
+	const handlerLogin = () => {
+		navigate("/Login")
+	}
 	const formik = useFormik({
 		initialValues: {
 			firstName: "",
@@ -18,9 +30,6 @@ const Signup = () => {
 			lastName: Yup.string()
 				.min(3, "Last name harus lebih dari 3 huruf")
 				.required(),
-			userName: Yup.string()
-				.min(5, "username harus lebih dari 5 huruf")
-				.required(),
 			email: Yup.string().email("Isi email dengan benar").required(),
 			password: Yup.string().min(8, "Minimal panjang password 8").required(),
 			confirmPassword: Yup.string()
@@ -28,17 +37,38 @@ const Signup = () => {
 				.required(),
 		}),
 		onSubmit: (values) => {
-			alert(JSON.stringify(values, null, 2));
-			formik.resetForm();
+			console.log(values)
+			 register ({
+				variables: {
+					firstname : values.firstName,
+					lastname : values.lastName,
+					email : values.email,
+					password : values.password
+				}
+			})
 		},
+
 	});
+
+	if (data) {
+		if(window.confirm("Data berhasil di Edit!!! Kembali ke halaman create?")) {
+			navigate("/Login");
+		}
+	}
 
 	return (
 		<div>
+			
 			<div className="d-md-flex min-vh-100 justify-content-center align-items-center">
 				<div className="w-full w-md-50 p-4 shadow">
 					<form>
-						<h1 className="text-center fs-3 mb-3">Sign Up</h1>
+					<div className="text-center">{loginload?<p>loading</p>:<p></p>}</div>
+					<h1 
+                        className="text-center fs-3 fw-bold mb-3"
+                        style={{color: "#EF5B00"}}
+                    >
+                        Sign Up
+                    </h1>
 						<div className="row">
 							<div className="col-md-6 mb-3">
 								<label htmlFor="firstname" className="form-label">
@@ -72,21 +102,6 @@ const Signup = () => {
 								/>
 								<div className="invalid-feedback">{formik.errors.lastName}</div>
 							</div>
-						</div>
-						<div className="mb-3">
-							<label htmlFor="username" className="form-label">
-								Username
-							</label>
-							<input
-								type="email"
-								className={`form-control ${formik.errors.userName && `is-invalid`} `}
-								id="username"
-								placeholder="username"
-								name="userName"
-								value={formik.values.userName}
-								onChange={formik.handleChange}
-							/>
-							<div className="invalid-feedback">{formik.errors.userName}</div>
 						</div>
 						<div className="mb-3">
 							<label htmlFor="email" className="form-label">
@@ -124,9 +139,8 @@ const Signup = () => {
 							</label>
 							<input
 								type="password"
-								className={`form-control ${
-									formik.errors.confirmPassword && `is-invalid`
-								} `}
+								className={`form-control ${formik.errors.confirmPassword && `is-invalid`
+									} `}
 								id="confirmpassword"
 								placeholder="confirm password"
 								name="confirmPassword"
@@ -140,12 +154,24 @@ const Signup = () => {
 								</div>
 							)}
 						</div>
+						{error?
+							<p className="text-danger">Email sudah digunaan</p>:
+							<p></p>
+						}
 						<button
 							type="submit"
-							className="btn btn-primary"
+							className="btn text-white fw-bold"
+							style={{ backgroundColor: "#EF5B00" }}
 							onClick={formik.handleSubmit}>
-							Sign Up
+							Register
 						</button>
+						<a
+							className="text-decoration-none fs-6 fw-bold m-2"
+							onClick={handlerLogin}
+							style={{ color: "#EF5B00" }}
+						>
+							Login
+						</a>
 					</form>
 				</div>
 			</div>
