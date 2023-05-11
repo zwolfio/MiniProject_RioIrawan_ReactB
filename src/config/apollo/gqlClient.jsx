@@ -30,3 +30,29 @@ mutation signup(
 
 
 `
+
+export const getData = gql`
+query GetData ($id_user:Int!) {
+  plan(where: {id_user: {_eq: $id_user}}) {
+    id_user
+    catatan
+    idPlan
+    isDone
+    namaDestinasi
+    namaKota
+  }
+}
+`
+
+export const searchDestinasi = gql`
+query SearchData($namaDestinasi: String!, $id_user: Int!) {
+  plan(where: {plan_user: {}, namaDestinasi: {_eq: $namaDestinasi}, id_user: {_eq: $id_user}}) {
+    id_user
+    catatan
+    idPlan
+    isDone
+    namaDestinasi
+    namaKota
+  }
+}
+`

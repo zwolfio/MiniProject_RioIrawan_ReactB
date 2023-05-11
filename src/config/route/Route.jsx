@@ -15,9 +15,9 @@ export const routing = [
         isPrivate: false,
     },
     {
-        path: "/:username",
+        path: "/:id",
         element: <LandingPageLogin/>,
-        isPrivate: false,
+        isPrivate: true,
     },
     {
         path: "/AboutUs",

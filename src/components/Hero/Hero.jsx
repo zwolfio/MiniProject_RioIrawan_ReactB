@@ -15,7 +15,7 @@ const Hero = (props) => {
         navigate("/SignUp");
     }
     const handlerStart = () => {
-        navigate("/TravelList");
+        navigate(`/TravelList/${props.id}`);
     }
 
     return (

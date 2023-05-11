@@ -1,10 +1,10 @@
 import React from "react";
 import "./Navbar.style.css"
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import authSlice from "../../config/auth/authSlice";
 
-const Navbar = () => {
+const Navbar = (props) => {
     const isLogin = useSelector((state)=> state.auth.isLogin);
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -13,7 +13,8 @@ const Navbar = () => {
 		navigate("/AboutUS");
 	};
 	const handlerHome = () => {
-		navigate("/");
+        console.log(isLogin)
+		isLogin?navigate(`/${props.id}`): navigate("/")
 	};
 	const handlerContactUs = () => {
 		navigate("/ContactUs");
