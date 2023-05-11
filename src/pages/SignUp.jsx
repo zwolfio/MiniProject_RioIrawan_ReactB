@@ -51,7 +51,7 @@ const Signup = () => {
 	});
 
 	if (data) {
-		if(window.confirm("Data berhasil di Edit!!! Kembali ke halaman create?")) {
+		if(window.confirm("Data berhasil di Edit!!! Kembali ke halaman Login?")) {
 			navigate("/Login");
 		}
 	}

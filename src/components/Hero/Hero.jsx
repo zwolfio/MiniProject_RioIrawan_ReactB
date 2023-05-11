@@ -15,7 +15,7 @@ const Hero = (props) => {
         navigate("/SignUp");
     }
     const handlerStart = () => {
-        navigate("/TravelList");
+        navigate(`/modalCreate`);
     }
 
     return (
@@ -32,8 +32,9 @@ const Hero = (props) => {
                     </h5>
                     {isLogin?<div><a 
                         className="btn rounded-pill fs-5 fw-bold text-white me-3 px-4 "
-                        onClick={handlerStart}
                         style={{ backgroundColor: "#EF5B00" }}
+                        data-bs-toggle="modal" 
+                        data-bs-target="#modalCreate"
                     >
                         Start Planning
                     </a>
