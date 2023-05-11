@@ -23,7 +23,7 @@ const Hero = (props) => {
             <div className="row w-100 d-flex align-items-center my-5 p-3">
                 <div className="col-md-6" >
                     <h1 className="hero-title fw-bold pb-2">
-                        Let’s Plan your <br/> Travel, {props.username}
+                        Let’s Plan your <br/> Travel
                     </h1>
                     <h5 className="hero-desc pb-2">
                         Travel planner terbaik untuk perjalanan Anda.<br/>
