@@ -7,26 +7,7 @@ query userLogin($email: String!, $password: String!) {
       id
       email
       password
+      username
     }
   }
-`
-
-export const userSignup = gql`
-mutation signup( 
-  $email: String!, 
-  $password: String!, 
-  $firstname: String!, 
-  $lastname: String!) {
-  insert_user_one(
-    object: {
-      email: $email, 
-      firstname: $firstname, 
-      password: $password, 
-      lastname: $lastname, 
-    }) {
-      id
-  }
-}
-
-
 `

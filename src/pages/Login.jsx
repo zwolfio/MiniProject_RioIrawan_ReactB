@@ -9,15 +9,6 @@ import { userLogin } from "../config/apollo/gqlClient";
 
 const Login = () => {
 
-    const [userEmail,setuserEmail] = useState('')
-    const [userPass,setuserPass] = useState('')
-    const { data } = useQuery(userLogin, {
-        variables: {
-            email: userEmail,
-            password: userPass
-        }
-    })
-
     const [ErrorMsg, setErrorMsg] = useState("")
 
     const dispatch = useDispatch();
@@ -36,23 +27,24 @@ const Login = () => {
             password: Yup.string().min(8, "Minimal panjang password 8").required(),
         }),
         onSubmit: (values) => {
-            console.log(values)
-            setuserEmail(values.email);
-            setuserPass(values.password);
-            console.log(userEmail)
-            console.log(data)
-            if (data && values.email === data.user[0].email && values.password === data.user[0].password) {
+            console.log(dataLogin)
+            if (values.email === dataLogin.email && values.password === dataLogin.password) {
                 dispatch(authSlice.actions.login(true));
                 setErrorMsg("")
-                return navigate(`/${data.user[0].id}`);
+                return navigate(`/${dataLogin.username}`);
             } else {
                 setErrorMsg("Password atau Email anda salah")
             }
         },
     });
-    
+    const { data } = useQuery(userLogin, {
+        variables: {
+            email: formik.values.email,
+            password: formik.values.password
+        }
+    })
 
-
+    const dataLogin = data ? data.user[0] : []
 
     return (
         <div className="d-md-flex min-vh-100 justify-content-center align-items-center">
