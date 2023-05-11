@@ -40,7 +40,7 @@ export const routing = [
         isPrivate: false,
     },
     {
-        path: "/TravelList",
+        path: "/TravelList/:id",
         element: <TravelList/>,
         isPrivate: true,
     },
@@ -49,5 +49,6 @@ export const routing = [
         element: <TravelHistory/>,
         isPrivate: true,
     },
+    
     
 ];

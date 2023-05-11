@@ -4,8 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import authSlice from "../../config/auth/authSlice";
 
-const Navbar = (props) => {
+
+const Navbar = () => {
     const isLogin = useSelector((state)=> state.auth.isLogin);
+    const userid = useSelector((state)=> state.auth.userid);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -14,13 +16,13 @@ const Navbar = (props) => {
 	};
 	const handlerHome = () => {
         console.log(isLogin)
-		isLogin?navigate(`/${props.id}`): navigate("/")
+		isLogin?navigate(`/${userid}`): navigate("/")
 	};
 	const handlerContactUs = () => {
 		navigate("/ContactUs");
 	};
 	const handlerTravelList = () => {
-		navigate("/TravelList");
+		navigate(`/TravelList/${userid}`);
 	};
 	const handlerTravelHistory = () => {
 		navigate("/TravelHistory");

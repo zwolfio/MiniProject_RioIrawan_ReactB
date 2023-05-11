@@ -30,6 +30,7 @@ const Login = () => {
             console.log(dataLogin)
             if (dataLogin && values.email === dataLogin.email && values.password === dataLogin.password) {
                 dispatch(authSlice.actions.login(true));
+                dispatch(authSlice.actions.id(dataLogin.id));
                 setErrorMsg("")
                 return navigate(`/${dataLogin.id}`);
             } else {

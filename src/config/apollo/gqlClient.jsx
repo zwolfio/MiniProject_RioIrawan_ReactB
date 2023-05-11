@@ -56,3 +56,28 @@ query SearchData($namaDestinasi: String!, $id_user: Int!) {
   }
 }
 `
+export const insertPlan = gql`
+mutation insertPlan(
+  $tanggalPergi: date!, 
+  $namaKota: String!, 
+  $namaDestinasi: String!, 
+  $catatan: String!, 
+  $id_user:Int!) {
+  insert_plan_one(object: {
+    
+    tanggalPergi: $tanggalPergi, 
+    namaKota: $namaKota, 
+    namaDestinasi: $namaDestinasi, 
+    catatan: $catatan, 
+    id_user: $id_user}) {
+    
+    id_user
+    catatan
+    idPlan
+    isDone
+    namaDestinasi
+    namaKota
+
+  }
+}
+`
