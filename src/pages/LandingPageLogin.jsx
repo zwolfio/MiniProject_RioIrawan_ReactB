@@ -8,7 +8,6 @@ import { useQuery, useMutation } from "@apollo/client";
 import { getData, searchDestinasi ,insertPlan, deletePlan, done} from "../config/apollo/gqlClient";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ref } from "yup";
 
 const LandingPageLogin = () => {
     const { id } = useParams()
