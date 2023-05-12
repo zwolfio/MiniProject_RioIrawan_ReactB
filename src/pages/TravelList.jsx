@@ -1,16 +1,17 @@
 import React from "react";
 import Navbar from "../components/navbar/navbar";
 import Footer from "../components/Footer/Footer";
+import ModalCreate from "../components/modalCreate/modalCreate";
 import { useParams, Link } from "react-router-dom";
-import { useState } from "react";
-import { useQuery } from "@apollo/client";
-import { getData, searchDestinasi } from "../config/apollo/gqlClient";
+import { useState, useEffect } from "react";
+import { useQuery, useMutation } from "@apollo/client";
+import { getData, searchDestinasi, insertPlan,done } from "../config/apollo/gqlClient";
 
 
 const TravelList = () => {
 
-
-    const [dataPlans, setdataPlans] = useState(false)
+    const { id } = useParams()
+    const [insertPlans, { data: dataInsert }] = useMutation(insertPlan,)
     const [loadMore, setloadMore] = useState(4);
     const handleLoad = () => {
         setloadMore(loadMore + 4)
@@ -19,7 +20,6 @@ const TravelList = () => {
     const [Search, setSearch] = useState()
     console.log(Search)
 
-    const { id } = useParams()
     const { data: dataPlan, loading, refetch } = useQuery(getData, {
         variables: {
             id_user: id
@@ -36,29 +36,48 @@ const TravelList = () => {
         }
     })
 
-    const [nothingSearch, setnothingSearch] = useState('')
-
     const handleSearch = () => {
         if (Search) {
-            setItem(dataSearch.plan)
-            if(Search==Item[0].namaDestinasi){
-                setnothingSearch('Item yang dicari Ditemukan!')
-            }else {
-                setnothingSearch('Item yang dicari tidak ada')
-            }
+            setItem(dataSearch)
+
         } else {
-            setItem(dataPlan.plan)
-            
+            setItem(dataPlan)
+
         }
     };
-    const temp = () => {
 
-        if (dataPlans == false && loading == false) {
-            setdataPlans(true)
-            setItem(dataPlan.plan)
+    useEffect(() => {
+        if (Search) {
+            setItem(dataSearch)
+        } else {
+            setItem(dataPlan)
         }
-    }
-    temp();
+        refetch()
+
+            , [loading]
+    })
+
+    const handleDelete = (idPlan) => {
+		if (window.confirm("Apakah Anda yakin ingin menghapus data ini?")) {
+			deletePlans({
+				variables: {
+					idPlan,
+				}
+			})
+		}
+	};
+
+    const [doned] = useMutation (done)
+    const handleDone = (idPlan) => {
+		if (window.confirm("Apakah Anda yakin sudah mengunjungi ini?")) {
+			doned({
+				variables: {
+					idPlan,
+				}
+			})
+		}
+	};
+
     const imgsrc = `https://picsum.photos/id/`
     const imgsize = '/600/400'
     return (
@@ -66,7 +85,9 @@ const TravelList = () => {
             <Navbar
                 id={id}
             />
+
             
+
 
             <div className="container-fluid"
                 style={{ backgroundColor: "#ECEBFF" }}
@@ -81,6 +102,15 @@ const TravelList = () => {
                         Rencanakan liburan yang luar biasa bersama kami
                         dan nikmati pengalaman tak terlupakan.
                     </p>
+                    <a
+                        className="btn rounded-pill fs-5 fw-bold text-white me-3 px-4 "
+                        style={{ backgroundColor: "#EF5B00" }}
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalCreate"
+                    >
+                        Start Planning
+                    </a>
+
                     <div className="row gap-0 ">
                         <div className="col-10 mb-3 pt-3 ">
                             <input
@@ -104,11 +134,11 @@ const TravelList = () => {
                                 Search
                             </button>
                         </div>
-                        <h3>{nothingSearch}</h3>
+
                     </div>
                     <div className="row">
 
-                        {Item?.slice(0, loadMore).map((item, idx) => (
+                        {Item?.plan.slice(0, loadMore).map((item, idx) => (
                             <div key={idx} className="col-md-3 mb-3" >
                                 <div className="card"
 
@@ -121,19 +151,43 @@ const TravelList = () => {
                                     <div className="card-body">
                                         <h5>{item.namaDestinasi}</h5>
                                         <p>{item.catatan}</p>
-                                        
+
+                                    <button className="btn btn-outline-primary me-1">
+                                        <Link
+                                            to={`/detail/${item.idPlan}`}
+                                            className="text-decoration-none">
+                                            Detail
+                                        </Link>
+                                    </button>
+                                    <button className="btn btn-outline-warning me-1">
+                                        <Link
+                                            to={`/edit/${item.idPlan}`}
+                                            className="text-decoration-none">
+                                            Edit
+                                        </Link>
+                                    </button>
+                                    <button
+                                        className="btn btn-outline-danger"
+                                        onClick={() => handleDelete(item.idPlan)}>
+                                        Delete
+                                    </button>
+                                    <button
+                                        className="btn btn-outline-success"
+                                        onClick={() => handleDone(item.idPlan)}>
+                                        DONE
+                                    </button>
+
                                     </div>
                                 </div>
-
 
 
                             </div>
 
                         ))}
                         <div>
-                            {Item?.length > loadMore && (
+                            {Item?.plan.length > loadMore && (
                                 <button
-                                    className="btn btn-outline-primary me-1 mt-3"
+                                    className="btn btn-outline-primary me-1 my-3"
                                     onClick={handleLoad}
                                 >
                                     Load More
@@ -145,6 +199,13 @@ const TravelList = () => {
             </div>
             <hr></hr>
 
+            <ModalCreate
+                id={id}
+                dataPlan={dataPlan}
+                insertPlans={insertPlans}
+                dataInsert={dataInsert}
+
+            />
             <Footer />
         </div>
     )

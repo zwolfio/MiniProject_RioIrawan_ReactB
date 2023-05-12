@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import authSlice from "../config/auth/authSlice";
 import { useNavigate } from "react-router-dom";
@@ -38,6 +38,7 @@ const Login = () => {
             }
         },
     });
+
     const { data } = useQuery(userLogin, {
         variables: {
             email: formik.values.email,
@@ -45,7 +46,12 @@ const Login = () => {
         }
     })
 
-    const dataLogin = data ? data.user[0] : []
+    const [dataLogin, setdataLogin] = useState()
+    useEffect(()=>{
+        setdataLogin( data ? data.user[0] : [] )
+    },[data])
+    
+    
 
     return (
         <div className="d-md-flex min-vh-100 justify-content-center align-items-center">
