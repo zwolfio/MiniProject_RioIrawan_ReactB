@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Navbar from "../components/navbar/navbar";
+import Navbar from "../components/Navbar/Navbar";
 import Hero from "../components/Hero/Hero";
 import Footer from "../components/Footer/Footer"
 import ModalCreate from "../components/modalCreate/modalCreate";
