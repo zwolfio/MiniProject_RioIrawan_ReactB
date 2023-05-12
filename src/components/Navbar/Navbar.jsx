@@ -25,7 +25,7 @@ const Navbar = () => {
 		navigate(`/TravelList/${userid}`);
 	};
 	const handlerTravelHistory = () => {
-		navigate("/TravelHistory");
+		navigate(`/TravelHistory/${userid}`);
 	};
 	const handlerLogOut = () => {
 		navigate("/");

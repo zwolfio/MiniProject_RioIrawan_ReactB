@@ -5,7 +5,7 @@ import Footer from "../components/Footer/Footer"
 import ModalCreate from "../components/modalCreate/modalCreate";
 import { useParams } from "react-router";
 import { useQuery, useMutation } from "@apollo/client";
-import { getData, searchDestinasi ,insertPlan} from "../config/apollo/gqlClient";
+import { getData, searchDestinasi ,insertPlan, deletePlan, done} from "../config/apollo/gqlClient";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { ref } from "yup";
@@ -38,8 +38,6 @@ const LandingPageLogin = () => {
         }
     })
 
-    const [nothingSearch, setnothingSearch] = useState('')
-
     const handleSearch = () => {
         if (Search) {
             setItem(dataSearch)
@@ -62,6 +60,30 @@ const LandingPageLogin = () => {
     
     const imgsrc = `https://picsum.photos/id/`
     const imgsize = '/600/400'
+    
+
+    const [deletePlans] = useMutation (deletePlan)
+    const handleDelete = (idPlan) => {
+		if (window.confirm("Apakah Anda yakin ingin menghapus data ini?")) {
+			deletePlans({
+				variables: {
+					idPlan,
+				}
+			})
+		}
+	};
+
+    const [doned] = useMutation (done)
+    const handleDone = (idPlan) => {
+		if (window.confirm("Apakah Anda yakin sudah mengunjungi ini?")) {
+			doned({
+				variables: {
+					idPlan,
+				}
+			})
+		}
+	};
+
     return (
 
         <div>
@@ -115,7 +137,7 @@ const LandingPageLogin = () => {
                             Search
                         </button>
                     </div>
-                    <h3>{nothingSearch}</h3>
+
                 </div>
                 <div className="row">
 
@@ -132,25 +154,30 @@ const LandingPageLogin = () => {
                                 <div className="card-body">
                                     <h5>{item.namaDestinasi}</h5>
                                     <p>{item.catatan}</p>
-                                    {/* <button className="btn btn-outline-primary me-1">
+                                    <button className="btn btn-outline-primary me-1">
                                         <Link
-                                            to={`/${item.idPlan}`}
+                                            to={`/detail/${item.idPlan}`}
                                             className="text-decoration-none">
                                             Detail
                                         </Link>
                                     </button>
                                     <button className="btn btn-outline-warning me-1">
                                         <Link
-                                            to={`/${item.idPlan}`}
+                                            to={`/edit/${item.idPlan}`}
                                             className="text-decoration-none">
                                             Edit
                                         </Link>
                                     </button>
                                     <button
                                         className="btn btn-outline-danger"
-                                        onClick={() => handleDelete(plan.idPlan)}>
+                                        onClick={() => handleDelete(item.idPlan)}>
                                         Delete
-                                    </button> */}
+                                    </button>
+                                    <button
+                                        className="btn btn-outline-success"
+                                        onClick={() => handleDone(item.idPlan)}>
+                                        DONE
+                                    </button>
                                 </div>
                             </div>
 
@@ -162,7 +189,7 @@ const LandingPageLogin = () => {
                     <div>
                         {Item?.plan.length > loadMore && (
                             <button
-                                className="btn btn-outline-primary me-1 mt-3"
+                                className="btn btn-outline-primary me-1 my-3"
                                 onClick={handleLoad}
                             >
                                 Load More

@@ -33,7 +33,7 @@ mutation signup(
 
 export const getData = gql`
 query GetData ($id_user:Int!) {
-  plan(where: {id_user: {_eq: $id_user}}) {
+  plan(where: {id_user: {_eq: $id_user},isDone: {_eq: false}}) {
     id_user
     catatan
     idPlan
@@ -43,7 +43,30 @@ query GetData ($id_user:Int!) {
   }
 }
 `
-
+export const getHistory = gql`
+query GetData ($id_user:Int!) {
+  plan(where: {id_user: {_eq: $id_user},isDone: {_eq: true}}) {
+    id_user
+    catatan
+    idPlan
+    isDone
+    namaDestinasi
+    namaKota
+  }
+}
+`
+export const getDetail = gql`
+query GetData ($idPlan:Int!) {
+  plan(where: {idPlan: {_eq: $idPlan}}) {
+    id_user
+    catatan
+    idPlan
+    isDone
+    namaDestinasi
+    namaKota
+  }
+}
+`
 export const searchDestinasi = gql`
 query SearchData($namaDestinasi: String!, $id_user: Int!) {
   plan(where: {plan_user: {}, namaDestinasi: {_eq: $namaDestinasi}, id_user: {_eq: $id_user}}) {
@@ -81,3 +104,50 @@ mutation insertPlan(
   }
 }
 `
+
+export const deletePlan = gql `
+    mutation deleteProduct($idPlan: Int!) {
+        delete_plan_by_pk(idPlan: $idPlan){
+            idPlan
+        }  
+    }
+`
+
+export const editPlan = gql `
+mutation updatePlan( 
+  $idPlan : Int!
+  $namaKota: String!, 
+  $namaDestinasi: String!, 
+
+  ) {
+  update_plan(
+            where: { idPlan: { _eq: $idPlan } }
+            _set: {
+
+              namaKota: $namaKota, 
+              namaDestinasi: $namaDestinasi, 
+              
+            }
+        ) {
+          affected_rows
+        }
+}
+`
+export const done = gql `
+mutation done( 
+  $idPlan : Int! 
+
+  ) {
+  update_plan(
+            where: { idPlan: { _eq: $idPlan } }
+            _set: {
+
+              isDone : true
+              
+            }
+        ) {
+          affected_rows
+        }
+}
+`
+

@@ -7,6 +7,8 @@ import Signup from "../../pages/SignUp";
 import TravelList from "../../pages/TravelList";
 import TravelHistory from "../../pages/TravelHistory";
 import LandingPageLogin from "../../pages/LandingPageLogin";
+import DetailPlan from "../../components/detailPlan/detailPlan";
+import EditPlan from  "../../components/editPlan/editPlan";
 
 export const routing = [
     {
@@ -45,8 +47,18 @@ export const routing = [
         isPrivate: true,
     },
     {
-        path: "/TravelHistory",
+        path: "/TravelHistory/:id",
         element: <TravelHistory/>,
+        isPrivate: true,
+    },
+    {
+        path: "/detail/:id",
+        element: <DetailPlan/>,
+        isPrivate: true,
+    },
+    {
+        path: "/edit/:id",
+        element: <EditPlan/>,
         isPrivate: true,
     },
     

@@ -2,10 +2,7 @@ import React, { useEffect } from "react";
 import { useFormik } from "formik";
 
 import * as Yup from "yup";
-import { useMutation } from "@apollo/client";
-import { insertPlan } from "../../config/apollo/gqlClient";
-import { Navigate } from "react-router-dom";
-import { getData } from "../../config/apollo/gqlClient";
+
 
 const modalCreate = (props) => {
     
@@ -38,7 +35,7 @@ const modalCreate = (props) => {
                     id_user: props.id
                 },
             })
-            
+            formik.resetForm()
             
         },
     });
@@ -125,8 +122,9 @@ const modalCreate = (props) => {
                         <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button 
                             type="submit" 
-                            className="btn btn-primary"
+                            className="btn fw-bold text-white"
                             data-bs-dismiss="modal"
+                            style={{backgroundColor : "#5A44EB"}}
                             onClick={formik.handleSubmit}
                         >
                             Save changes
